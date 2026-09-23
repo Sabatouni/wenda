@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { redirect } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -188,15 +189,15 @@ export default async function ProfilePage() {
                 { value: stats.followers, label: 'followers' },
                 { value: stats.following, label: 'following' },
               ].map((s, i) => (
-                <>
-                  {i > 0 && <div key={`div-${i}`} className="w-px bg-[var(--border-subtle)]" />}
-                  <div key={s.label}>
+                <Fragment key={s.label}>
+                  {i > 0 && <div className="w-px bg-[var(--border-subtle)]" />}
+                  <div>
                     <p className="font-display font-bold text-[18px] text-forest-900 tabular-nums">
                       {s.value}
                     </p>
                     <p className="text-[12px] text-ink-400">{s.label}</p>
                   </div>
-                </>
+                </Fragment>
               ))}
             </div>
           </div>
