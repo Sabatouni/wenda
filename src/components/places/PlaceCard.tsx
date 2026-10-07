@@ -1,9 +1,9 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { Flame, Users } from 'lucide-react'
 import { cn, formatCount } from '@/lib/utils'
 import SaveButton from '@/components/ui/SaveButton'
 import Badge from '@/components/ui/Badge'
+import PlaceImage from '@/components/ui/PlaceImage'
 import type { Place } from '@/types'
 import { isNewPlace, PRICE_RANGE_LABELS } from '@/types'
 
@@ -40,33 +40,29 @@ export default function PlaceCard({ place, variant = 'full', className }: PlaceC
     <Link
       href={`/places/${place.slug}`}
       className={cn(
-        'group block bg-[var(--bg-surface)] rounded-xl overflow-hidden',
-        'shadow-card hover:shadow-hover transition-shadow duration-300',
+        'group block h-full bg-[var(--bg-surface)] rounded-xl overflow-hidden',
+        'shadow-card hover:shadow-hover hover:-translate-y-0.5 active:scale-[0.985]',
+        'transition-[box-shadow,transform] duration-300 ease-smooth',
         className,
       )}
     >
       {/* Image */}
       <div className={cn('relative overflow-hidden', aspectClass)}>
-        {imgSrc ? (
-          <Image
-            src={imgSrc}
-            alt={place.name}
-            fill
-            sizes={variant === 'compact'
-              ? '(max-width: 640px) 50vw, 25vw'
-              : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
-            }
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-sand-200" />
-        )}
+        <PlaceImage
+          src={imgSrc}
+          alt={place.name}
+          sizes={variant === 'compact'
+            ? '(max-width: 640px) 50vw, 25vw'
+            : '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
+          }
+          className="group-hover:scale-105"
+          loading="lazy"
+        />
 
         {/* Badges top-left */}
         <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
           {place.trending && (
-            <Badge variant="trending">🔥 Trending</Badge>
+            <Badge variant="trending">Trending</Badge>
           )}
           {isNew && !place.trending && (
             <Badge variant="new">New</Badge>
@@ -83,7 +79,7 @@ export default function PlaceCard({ place, variant = 'full', className }: PlaceC
         </div>
 
         {/* Subtle gradient at bottom of image */}
-        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
       </div>
 
       {/* Info */}

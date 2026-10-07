@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Flame, Gem } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type BadgeVariant = 'default' | 'green' | 'orange' | 'muted' | 'trending' | 'new' | 'hidden'
@@ -23,11 +24,27 @@ export default function Badge({ children, variant = 'default', className }: Badg
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold tracking-wide uppercase',
+        'inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold tracking-wide uppercase',
         variantClasses[variant],
         className,
       )}
     >
+      {variant === 'trending' && (
+        <Flame
+          size={11}
+          strokeWidth={2.4}
+          aria-hidden
+          className="transition-transform duration-200 ease-spring motion-safe:group-hover:scale-125 motion-safe:group-hover:-rotate-6"
+        />
+      )}
+      {variant === 'hidden' && (
+        <Gem
+          size={11}
+          strokeWidth={2.4}
+          aria-hidden
+          className="text-ember-600 transition-transform duration-200 ease-spring motion-safe:group-hover:scale-125 motion-safe:group-hover:rotate-12"
+        />
+      )}
       {children}
     </span>
   )

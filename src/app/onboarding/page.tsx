@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+import WendaLogo from '@/components/ui/WendaLogo'
 import { Loader2, AlertCircle, AtSign, User } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
@@ -94,13 +94,7 @@ export default function OnboardingPage() {
 
       {/* Minimal header — no full nav bar during onboarding */}
       <header className="flex items-center justify-center px-6 pt-8 pb-6 shrink-0">
-        <Image
-          src="/logo-mark-dark.svg"
-          alt="WENDA"
-          width={42}
-          height={38}
-          priority
-        />
+        <WendaLogo height={38} priority />
       </header>
 
       {/* Form area */}

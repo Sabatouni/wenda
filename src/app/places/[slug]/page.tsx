@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
+import PlaceImage from '@/components/ui/PlaceImage'
 import Link from 'next/link'
-import { MapPin, Bookmark, Navigation } from 'lucide-react'
+import { MapPin, Bookmark, Navigation, ArrowLeft } from 'lucide-react'
 import Header from '@/components/layout/Header'
 import BottomNav from '@/components/layout/BottomNav'
 import PlaceCard from '@/components/places/PlaceCard'
 import Badge from '@/components/ui/Badge'
+import WendaIcon from '@/components/ui/WendaIcon'
 import { getPlaceBySlug, DEMO_PLACES } from '@/data/demo'
 import { formatCount } from '@/lib/utils'
 import { isNewPlace, PRICE_RANGE_LABELS } from '@/types'
@@ -49,31 +50,28 @@ export default async function PlacePage({ params }: { params: Promise<Params> })
       <main className="pt-[var(--nav-h)] pb-[var(--bottom-nav-h)] md:pb-0">
         {/* Hero image */}
         <div className="relative h-[50vh] sm:h-[60vh] max-h-[560px] bg-ink-200">
-          {place.cover_photo_url && (
-            <Image
-              src={place.cover_photo_url}
-              alt={place.name}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <PlaceImage
+            src={place.cover_photo_url}
+            alt={place.name}
+            priority
+            sizes="100vw"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
 
           {/* Back button */}
           <Link
             href="/explore"
-            className="absolute top-4 left-4 flex items-center gap-2 px-3 py-2 rounded-full
+            className="group absolute top-4 left-4 flex items-center gap-1.5 px-3 py-2 rounded-full
                        bg-black/40 backdrop-blur-sm text-white text-[13px] font-medium
-                       hover:bg-black/60 transition-colors"
+                       hover:bg-black/60 active:scale-95 transition"
           >
-            ← Back
+            <ArrowLeft size={14} aria-hidden className="transition-transform duration-200 ease-smooth motion-safe:group-hover:-translate-x-0.5" />
+            Back
           </Link>
 
           {/* Badges */}
           <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
-            {place.trending && <Badge variant="trending">🔥 Trending</Badge>}
+            {place.trending && <Badge variant="trending">Trending</Badge>}
             {isNewPlace(place.created_at) && <Badge variant="new">New</Badge>}
             {place.is_hidden_gem && <Badge variant="hidden">Hidden gem</Badge>}
           </div>
@@ -138,8 +136,9 @@ export default async function PlacePage({ params }: { params: Promise<Params> })
               {place.vibes.map(v => (
                 <span
                   key={v}
-                  className="px-3 py-1 rounded-full bg-forest-50 text-forest-800 text-[12px] font-medium border border-forest-100"
+                  className="group inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest-50 text-forest-800 text-[12px] font-medium border border-forest-100"
                 >
+                  <WendaIcon name={v} size={13} />
                   {v.replace(/-/g, ' ')}
                 </span>
               ))}
