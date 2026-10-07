@@ -25,6 +25,8 @@ interface SaveButtonProps {
 
 export default function SaveButton({ placeId, initialSaved = false, className }: SaveButtonProps) {
   const [saved, setSaved] = useState(initialSaved)
+  // Only pop after a user toggle — not on first paint of an already-saved place
+  const [touched, setTouched] = useState(false)
 
   function handleSave(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
@@ -32,6 +34,7 @@ export default function SaveButton({ placeId, initialSaved = false, className }:
 
     // Optimistic toggle — will revert on error once Supabase is wired
     setSaved((v: boolean) => !v)
+    setTouched(true)
 
     // TODO: wire to Supabase — example integration:
     // const supabase = createBrowserClient(...)
@@ -49,8 +52,10 @@ export default function SaveButton({ placeId, initialSaved = false, className }:
     <button
       onClick={handleSave}
       aria-label={saved ? 'Remove from saved' : 'Save place'}
+      aria-pressed={saved}
       className={cn(
-        'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200',
+        'w-8 h-8 rounded-full flex items-center justify-center',
+        'transition-[background-color,color,box-shadow,transform] duration-200 ease-smooth active:scale-90',
         saved
           ? 'bg-forest-900 text-sand-300 shadow-md'
           : 'bg-white/80 backdrop-blur-sm text-ink-600 hover:bg-white hover:text-forest-900',
@@ -58,6 +63,8 @@ export default function SaveButton({ placeId, initialSaved = false, className }:
       )}
     >
       <Bookmark
+        key={String(saved)}
+        className={touched && saved ? 'animate-pop' : undefined}
         size={15}
         strokeWidth={2}
         fill={saved ? 'currentColor' : 'none'}

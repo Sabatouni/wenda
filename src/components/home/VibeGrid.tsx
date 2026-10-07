@@ -1,7 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { unsplash } from '@/lib/utils'
 import { DEMO_VIBES } from '@/data/demo'
+import PlaceImage from '@/components/ui/PlaceImage'
+import WendaIcon from '@/components/ui/WendaIcon'
 
 export default function VibeGrid() {
   return (
@@ -23,25 +24,26 @@ export default function VibeGrid() {
             <Link
               key={vibe.slug}
               href={`/explore?vibe=${vibe.slug}`}
-              className="group relative rounded-lg overflow-hidden cursor-pointer"
+              className="group relative rounded-lg overflow-hidden cursor-pointer bg-forest-800 active:scale-[0.98] transition-transform duration-200 ease-smooth"
               style={{ aspectRatio: i === 0 || i === 4 ? '1/1.2' : '1/1' }}
             >
               {/* Background image */}
-              <Image
+              <PlaceImage
                 src={unsplash(vibe.photoId, 400)}
                 alt={vibe.label}
-                fill
                 sizes="(max-width: 640px) 50vw, 25vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="group-hover:scale-105"
                 loading="lazy"
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/30 to-transparent group-hover:from-forest-900/70 transition-all duration-300" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/30 to-transparent group-hover:from-forest-900/70 transition-all duration-300" />
 
               {/* Content */}
               <div className="absolute inset-x-0 bottom-0 p-3.5">
-                <span className="text-[18px] leading-none">{vibe.emoji}</span>
+                <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-sand-200/15 backdrop-blur-sm">
+                  <WendaIcon name={vibe.slug} size={16} tone="inverse" />
+                </span>
                 <p className="mt-1.5 font-display font-bold text-[14px] sm:text-[15px] text-sand-200 tracking-[-0.01em] leading-tight">
                   {vibe.label}
                 </p>

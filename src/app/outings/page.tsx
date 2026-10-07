@@ -1,8 +1,8 @@
 import Header from '@/components/layout/Header'
 import BottomNav from '@/components/layout/BottomNav'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Plus, Users, MapPin, ChevronRight, Calendar, Clock } from 'lucide-react'
+import PlaceImage from '@/components/ui/PlaceImage'
+import { Plus, Users, MapPin, ChevronRight, Calendar, Clock, Check } from 'lucide-react'
 import { DEMO_PLACES } from '@/data/demo'
 import type { Metadata } from 'next'
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: 'Outings — Wenda' }
 const DEMO_OUTINGS = [
   {
     id: 'o1',
-    name: 'Saturday beach day 🌊',
+    name: 'Saturday beach day',
     date: 'This Saturday',
     time: '10am',
     places: [DEMO_PLACES[2], DEMO_PLACES[4], DEMO_PLACES[7]],
@@ -62,12 +62,10 @@ export default function OutingsPage() {
                   <div className="flex h-[100px] overflow-hidden">
                     {outing.places.map((place, i) => (
                       <div key={place.id} className="relative flex-1 overflow-hidden">
-                        <Image
-                          src={place.cover_photo_url ?? ''}
+                        <PlaceImage
+                          src={place.cover_photo_url}
                           alt={place.name}
-                          fill
                           sizes="33vw"
-                          className="object-cover"
                         />
                         {i < outing.places.length - 1 && (
                           <div className="absolute right-0 top-0 bottom-0 w-px bg-white/30" />
@@ -98,12 +96,14 @@ export default function OutingsPage() {
                           </div>
                         </div>
                       </div>
-                      <span className={`shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full ${
+                      <span className={`shrink-0 inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full ${
                         outing.status === 'confirmed'
                           ? 'bg-forest-50 text-forest-700 border border-forest-200'
                           : 'bg-amber-50 text-amber-700 border border-amber-200'
                       }`}>
-                        {outing.status === 'confirmed' ? '✓ Confirmed' : '● Planning'}
+                        {outing.status === 'confirmed'
+                          ? <><Check size={11} strokeWidth={3} aria-hidden /> Confirmed</>
+                          : <><span aria-hidden className="w-1.5 h-1.5 rounded-full bg-current" /> Planning</>}
                       </span>
                     </div>
 
@@ -170,12 +170,11 @@ export default function OutingsPage() {
                   className="shrink-0 group flex flex-col items-center gap-2 w-[80px]"
                 >
                   <div className="relative w-[72px] h-[72px] rounded-2xl overflow-hidden">
-                    <Image
-                      src={place.cover_photo_url ?? ''}
+                    <PlaceImage
+                      src={place.cover_photo_url}
                       alt={place.name}
-                      fill
                       sizes="72px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest-900/50">
                       <Plus size={18} className="text-white" />

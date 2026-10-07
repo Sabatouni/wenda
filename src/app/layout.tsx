@@ -22,9 +22,6 @@ export const metadata: Metadata = {
     title: 'WENDA — Wenda wapi?',
     description: "There's always somewhere to go.",
   },
-  icons: {
-    icon: '/logo-mark-dark.svg',
-  },
 }
 
 export const viewport: Viewport = {

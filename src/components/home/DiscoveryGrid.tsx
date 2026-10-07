@@ -28,12 +28,10 @@ export default function DiscoveryGrid() {
           </Link>
         </div>
 
-        {/* Masonry grid */}
-        <div className="masonry-grid">
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
           {places.map(place => (
-            <div key={place.id} className="masonry-item">
-              <PlaceCard place={place} />
-            </div>
+            <PlaceCard key={place.id} place={place} />
           ))}
         </div>
 
@@ -43,7 +41,7 @@ export default function DiscoveryGrid() {
             href="/explore"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-[var(--border-default)]
                        text-[14px] font-semibold text-forest-900 hover:bg-forest-50 hover:border-forest-900/30
-                       transition-all duration-150"
+                       active:scale-[0.98] transition-all duration-150"
           >
             Explore more places
             <ArrowRight size={15} />

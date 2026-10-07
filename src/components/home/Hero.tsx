@@ -1,8 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useState, type FormEvent, type ChangeEvent } from 'react'
+import { useEffect, useState, type FormEvent, type ChangeEvent, type CSSProperties } from 'react'
+import { cn } from '@/lib/utils'
+import WendaIcon, { pillClass, type WendaIconName } from '@/components/ui/WendaIcon'
 
 const ROTATING_LINES = [
   'Nothing planned?',
@@ -12,9 +15,32 @@ const ROTATING_LINES = [
   'There\'s somewhere.',
 ]
 
+// Hrefs use real category ids / flags so Explore can filter on them
+const QUICK_LINKS: { label: string; icon: WendaIconName; href: string }[] = [
+  { label: 'Food',        icon: 'restaurant',  href: '/explore?category=restaurant' },
+  { label: 'Cafés',       icon: 'cafe',        href: '/explore?category=cafe' },
+  { label: 'Beaches',     icon: 'beach',       href: '/explore?category=beach' },
+  { label: 'Nightlife',   icon: 'nightlife',   href: '/explore?category=nightlife' },
+  { label: 'Hidden gems', icon: 'hidden-gems', href: '/explore?filter=hidden-gems' },
+  { label: 'Activities',  icon: 'activity',    href: '/explore?category=activity' },
+]
+
+const stagger = (i: number) => ({ '--i': i }) as CSSProperties
+
 export default function Hero() {
   const router = useRouter()
   const [query, setQuery] = useState('')
+  const [lineIndex, setLineIndex] = useState(0)
+
+  // Rotate the prompt line — skipped entirely for reduced-motion users
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const id = window.setInterval(
+      () => setLineIndex((i: number) => (i + 1) % ROTATING_LINES.length),
+      3200,
+    )
+    return () => window.clearInterval(id)
+  }, [])
 
   function handleSearch(e: FormEvent) {
     e.preventDefault()
@@ -28,14 +54,25 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
         {/* Headline */}
         <div className="max-w-3xl">
-          <p className="text-[13px] font-semibold text-ember-500 uppercase tracking-widest mb-4">
+          <p
+            className="text-[13px] font-semibold text-ember-500 uppercase tracking-widest mb-4 animate-fade-up stagger-item"
+            style={stagger(0)}
+          >
             Zanzibar · East Africa
           </p>
-          <h1 className="font-display font-bold leading-[0.95] tracking-[-0.03em] text-forest-900 dark:text-sand-200"
-              style={{ fontSize: 'clamp(52px, 9vw, 96px)' }}>
+          <h1
+            className="font-display font-bold leading-[0.95] tracking-[-0.03em] text-forest-900 dark:text-sand-200 animate-fade-up stagger-item"
+            style={{ fontSize: 'clamp(52px, 9vw, 96px)', ...stagger(1) }}
+          >
             Wenda wapi?
           </h1>
-          <p className="mt-4 text-[18px] sm:text-[22px] font-display text-ink-400 font-medium tracking-[-0.01em]">
+          <p
+            className="mt-4 text-[18px] sm:text-[22px] font-display text-ink-400 font-medium tracking-[-0.01em] animate-fade-up stagger-item"
+            style={stagger(2)}
+          >
+            <span key={lineIndex} className="block text-ink-600 animate-fade-up">
+              {ROTATING_LINES[lineIndex]}
+            </span>
             Good.{' '}
             <span className="text-ink-600">There&apos;s always somewhere to go.</span>
           </p>
@@ -44,7 +81,8 @@ export default function Hero() {
         {/* Search bar */}
         <form
           onSubmit={handleSearch}
-          className="mt-8 max-w-xl"
+          className="mt-8 max-w-xl animate-fade-up stagger-item"
+          style={stagger(3)}
           role="search"
         >
           <div className="relative flex items-center">
@@ -56,6 +94,7 @@ export default function Hero() {
               type="search"
               value={query}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+              aria-label="Search places"
               placeholder="Search places, food, beaches, vibes..."
               className="w-full pl-11 pr-28 py-3.5 rounded-xl border border-[var(--border-default)]
                          bg-white dark:bg-forest-900/30
@@ -66,7 +105,8 @@ export default function Hero() {
             <button
               type="submit"
               className="absolute right-2 px-4 py-2 rounded-lg bg-forest-900 text-sand-300
-                         text-[13px] font-semibold hover:bg-forest-800 transition-colors duration-150"
+                         text-[13px] font-semibold hover:bg-forest-800 active:scale-95
+                         transition duration-150"
             >
               Search
             </button>
@@ -74,26 +114,16 @@ export default function Hero() {
         </form>
 
         {/* Quick category pills */}
-        <div className="mt-5 flex flex-wrap gap-2">
-          {[
-            { label: 'Food', emoji: '🍽' },
-            { label: 'Cafés', emoji: '☕' },
-            { label: 'Beaches', emoji: '🏖' },
-            { label: 'Nightlife', emoji: '🌙' },
-            { label: 'Hidden gems', emoji: '💎' },
-            { label: 'Activities', emoji: '🎯' },
-          ].map(item => (
-            <button
+        <div className="mt-5 flex flex-wrap gap-2 animate-fade-up stagger-item" style={stagger(4)}>
+          {QUICK_LINKS.map(item => (
+            <Link
               key={item.label}
-              onClick={() => router.push(`/explore?category=${item.label.toLowerCase()}`)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white dark:bg-forest-900/30
-                         border border-[var(--border-subtle)] text-[13px] font-medium text-ink-600
-                         hover:border-forest-900/30 hover:text-forest-900 hover:bg-forest-50
-                         transition-all duration-150 shadow-sm"
+              href={item.href}
+              className={cn(pillClass(), 'px-3.5 py-2 shadow-sm')}
             >
-              <span>{item.emoji}</span>
+              <WendaIcon name={item.icon} />
               <span>{item.label}</span>
-            </button>
+            </Link>
           ))}
         </div>
       </div>

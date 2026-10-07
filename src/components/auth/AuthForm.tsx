@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import Image from 'next/image'
+import WendaLogo from '@/components/ui/WendaLogo'
 import { Loader2, AlertCircle, Mail, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
@@ -84,7 +84,7 @@ export function AuthForm({ nextPath }: AuthFormProps) {
     return (
       <div className="min-h-screen bg-[var(--bg-base)] flex flex-col">
         <header className="flex items-center justify-center px-6 pt-8 pb-6 shrink-0">
-          <Image src="/logo-mark-dark.svg" alt="WENDA" width={42} height={38} priority />
+          <WendaLogo height={38} priority />
         </header>
 
         <div className="flex-1 flex items-start justify-center px-4 py-4">
@@ -124,7 +124,7 @@ export function AuthForm({ nextPath }: AuthFormProps) {
   return (
     <div className="min-h-screen bg-[var(--bg-base)] flex flex-col">
       <header className="flex items-center justify-center px-6 pt-8 pb-6 shrink-0">
-        <Image src="/logo-mark-dark.svg" alt="WENDA" width={42} height={38} priority />
+        <WendaLogo height={38} priority />
       </header>
 
       <div className="flex-1 flex items-start justify-center px-4 py-4">

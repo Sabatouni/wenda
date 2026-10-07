@@ -20,7 +20,7 @@ export default function BottomNav() {
   return (
     <nav
       aria-label="Mobile navigation"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-[var(--bg-base)] border-t border-[var(--border-subtle)] pb-safe md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-[color-mix(in_srgb,var(--bg-base)_90%,transparent)] backdrop-blur-md border-t border-[var(--border-subtle)] pb-safe md:hidden"
       style={{ height: 'calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px))' }}
     >
       <div className="flex items-center justify-around h-[var(--bottom-nav-h)]">
@@ -33,14 +33,15 @@ export default function BottomNav() {
               aria-label={label}
               aria-current={active ? 'page' : undefined}
               className={cn(
-                'flex flex-col items-center justify-center gap-1 min-w-[52px] h-full px-2 transition-colors',
+                'relative flex flex-col items-center justify-center gap-1 min-w-[52px] h-full px-2',
+                'transition-[color,transform] duration-150 active:scale-95',
                 active ? 'text-forest-900' : 'text-ink-400 hover:text-ink-700'
               )}
             >
               <Icon
                 size={22}
                 strokeWidth={active ? 2.2 : 1.8}
-                className="transition-all"
+                className={cn('transition-transform duration-200 ease-spring', active && '-translate-y-0.5')}
               />
               <span
                 className={cn(
@@ -51,7 +52,7 @@ export default function BottomNav() {
                 {label}
               </span>
               {active && (
-                <span className="absolute bottom-2 w-1 h-1 rounded-full bg-ember-500" />
+                <span className="absolute bottom-2 w-1 h-1 rounded-full bg-ember-500 animate-scale-in" />
               )}
             </Link>
           )

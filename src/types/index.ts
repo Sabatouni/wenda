@@ -271,19 +271,18 @@ export interface Report {
 export interface VibeConfig {
   slug: VibeSlug
   label: string
-  emoji: string
   description?: string
 }
 
 export const VIBE_CONFIG: Record<VibeSlug, VibeConfig> = {
-  'beach-ocean':   { slug: 'beach-ocean',   label: 'Beach & Ocean',   emoji: '🏖️' },
-  'local-food':    { slug: 'local-food',    label: 'Local Food',      emoji: '🍽️' },
-  'nightlife':     { slug: 'nightlife',     label: 'Nightlife',       emoji: '🌙' },
-  'nature-hiking': { slug: 'nature-hiking', label: 'Nature & Hiking', emoji: '🌿' },
-  'arts-culture':  { slug: 'arts-culture',  label: 'Arts & Culture',  emoji: '🎭' },
-  'family-kids':   { slug: 'family-kids',   label: 'Family & Kids',   emoji: '👨‍👩‍👧' },
-  'sunset-spots':  { slug: 'sunset-spots',  label: 'Sunset Spots',    emoji: '🌅' },
-  'hidden-gems':   { slug: 'hidden-gems',   label: 'Hidden Gems',     emoji: '💎' },
+  'beach-ocean':   { slug: 'beach-ocean',   label: 'Beach & Ocean' },
+  'local-food':    { slug: 'local-food',    label: 'Local Food' },
+  'nightlife':     { slug: 'nightlife',     label: 'Nightlife' },
+  'nature-hiking': { slug: 'nature-hiking', label: 'Nature & Hiking' },
+  'arts-culture':  { slug: 'arts-culture',  label: 'Arts & Culture' },
+  'family-kids':   { slug: 'family-kids',   label: 'Family & Kids' },
+  'sunset-spots':  { slug: 'sunset-spots',  label: 'Sunset Spots' },
+  'hidden-gems':   { slug: 'hidden-gems',   label: 'Hidden Gems' },
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -311,5 +310,4 @@ export interface VibeItem extends VibeConfig {
 export interface CategoryItem {
   id: PlaceCategory | 'all'
   label: string
-  emoji: string
 }

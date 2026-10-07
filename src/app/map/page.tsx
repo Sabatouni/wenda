@@ -3,6 +3,8 @@ import BottomNav from '@/components/layout/BottomNav'
 import { Map, Filter, Search, Layers } from 'lucide-react'
 import { DEMO_PLACES, CATEGORIES } from '@/data/demo'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
+import WendaIcon, { pillClass } from '@/components/ui/WendaIcon'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Map — Wenda' }
@@ -92,12 +94,9 @@ export default function MapPage() {
               {CATEGORIES.map(cat => (
                 <button
                   key={cat.id}
-                  className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full
-                             bg-white/90 backdrop-blur-sm border border-white/60
-                             text-[12px] font-medium text-forest-900
-                             shadow-sm hover:bg-white transition-all duration-150"
+                  className={cn(pillClass(), 'px-3 py-1.5 text-[12px] gap-1.5 shadow-sm')}
                 >
-                  <span>{cat.emoji}</span>
+                  <WendaIcon name={cat.id} size={13} />
                   <span>{cat.label}</span>
                 </button>
               ))}
@@ -130,18 +129,19 @@ export default function MapPage() {
                 <Link
                   key={place.id}
                   href={`/places/${place.slug}`}
-                  className="flex items-center gap-3 py-2 hover:bg-[var(--bg-surface)] rounded-xl px-2 -mx-2 transition-colors"
+                  className="group flex items-center gap-3 py-2 hover:bg-[var(--bg-surface)] rounded-xl px-2 -mx-2 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-forest-100 flex items-center justify-center shrink-0 text-[18px]">
-                    {CATEGORIES.find(c => c.id === place.category)?.emoji ?? '📍'}
+                  <div className="w-10 h-10 rounded-lg bg-forest-50 flex items-center justify-center shrink-0">
+                    <WendaIcon name={place.category} size={18} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-[14px] text-forest-900 truncate">{place.name}</p>
                     <p className="text-[12px] text-ink-400">{place.locality}</p>
                   </div>
                   {place.trending && (
-                    <span className="shrink-0 text-[10px] font-semibold text-ember-500 bg-ember-50 px-2 py-0.5 rounded-full">
-                      🔥 Hot
+                    <span className="shrink-0 inline-flex items-center gap-1 text-[10px] font-semibold text-ember-600 bg-ember-50 px-2 py-0.5 rounded-full">
+                      <WendaIcon name="trending" size={10} tone="inherit" />
+                      Hot
                     </span>
                   )}
                 </Link>

@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, TrendingUp, Users } from 'lucide-react'
 import { formatCount } from '@/lib/utils'
 import { getTrendingPlaces } from '@/data/demo'
+import PlaceImage from '@/components/ui/PlaceImage'
 
 export default function TrendingSection() {
   const places = getTrendingPlaces()
@@ -37,21 +37,20 @@ export default function TrendingSection() {
             <Link
               key={place.id}
               href={`/places/${place.slug}`}
-              className="group relative shrink-0 w-[280px] sm:w-auto rounded-xl overflow-hidden"
+              className="group relative shrink-0 w-[280px] sm:w-auto rounded-xl overflow-hidden bg-forest-900 active:scale-[0.99] transition-transform duration-200 ease-smooth"
               style={{ minHeight: i === 0 ? 360 : 280 }}
             >
               {/* Full-bleed image */}
-              <Image
-                src={place.cover_photo_url ?? ''}
+              <PlaceImage
+                src={place.cover_photo_url}
                 alt={place.name}
-                fill
                 sizes="(max-width: 640px) 280px, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="group-hover:scale-105"
                 loading={i < 2 ? 'eager' : 'lazy'}
               />
 
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
               {/* Trending number */}
               <div className="absolute top-3 left-3 w-7 h-7 rounded-full bg-ember-500 flex items-center justify-center text-white text-[12px] font-bold shadow-md">

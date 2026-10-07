@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Diamond } from 'lucide-react'
 import { formatCount } from '@/lib/utils'
 import { getHiddenGems } from '@/data/demo'
+import PlaceImage from '@/components/ui/PlaceImage'
 
 export default function HiddenGemsStrip() {
   const gems = getHiddenGems()
@@ -40,22 +40,17 @@ export default function HiddenGemsStrip() {
             <Link
               key={place.id}
               href={`/places/${place.slug}`}
-              className="group shrink-0 w-[240px] rounded-xl overflow-hidden bg-white shadow-card hover:shadow-hover transition-shadow duration-300"
+              className="group shrink-0 w-[240px] rounded-xl overflow-hidden bg-white shadow-card hover:shadow-hover hover:-translate-y-0.5 active:scale-[0.985] transition-[box-shadow,transform] duration-300 ease-smooth"
             >
               {/* Image — cover_photo_url (resolved URL, not Unsplash ID) */}
               <div className="relative h-[140px] overflow-hidden">
-                {place.cover_photo_url ? (
-                  <Image
-                    src={place.cover_photo_url}
-                    alt={place.name}
-                    fill
-                    sizes="240px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-sand-200" />
-                )}
+                <PlaceImage
+                  src={place.cover_photo_url}
+                  alt={place.name}
+                  sizes="240px"
+                  className="group-hover:scale-105"
+                  loading="lazy"
+                />
               </div>
 
               {/* Info */}

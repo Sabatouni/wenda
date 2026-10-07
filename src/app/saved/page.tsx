@@ -5,13 +5,14 @@ import { Bookmark, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { DEMO_PLACES } from '@/data/demo'
 import type { Metadata } from 'next'
+import WendaIcon, { type WendaIconName } from '@/components/ui/WendaIcon'
 
 export const metadata: Metadata = { title: 'Saved — Wenda' }
 
-const DEMO_COLLECTIONS = [
-  { id: 'c1', name: 'Beach days', count: 4, emoji: '🌊' },
-  { id: 'c2', name: 'Food spots', count: 6, emoji: '🍽️' },
-  { id: 'c3', name: 'Night out', count: 3, emoji: '🌙' },
+const DEMO_COLLECTIONS: { id: string; name: string; count: number; icon: WendaIconName }[] = [
+  { id: 'c1', name: 'Beach days', count: 4, icon: 'beach-ocean' },
+  { id: 'c2', name: 'Food spots', count: 6, icon: 'local-food' },
+  { id: 'c3', name: 'Night out', count: 3, icon: 'nightlife' },
 ]
 
 // Pretend the first 6 places are saved
@@ -53,10 +54,10 @@ export default function SavedPage() {
               {DEMO_COLLECTIONS.map(col => (
                 <button
                   key={col.id}
-                  className="shrink-0 flex items-center gap-2.5 px-4 py-3 rounded-xl border border-[var(--border-subtle)]
+                  className="group shrink-0 flex items-center gap-2.5 px-4 py-3 rounded-xl border border-[var(--border-subtle)]
                              text-[13px] font-medium text-forest-900 hover:border-forest-900/40 bg-white transition-colors"
                 >
-                  <span>{col.emoji}</span>
+                  <WendaIcon name={col.icon} />
                   {col.name}
                   <span className="text-ink-400 font-normal">{col.count}</span>
                 </button>

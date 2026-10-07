@@ -232,29 +232,29 @@ export const DEMO_PLACES: Place[] = [
 // Must match VIBE_CONFIG in types/index.ts and 016_seed_vibes.sql
 
 export const DEMO_VIBES: VibeItem[] = [
-  { slug: 'beach-ocean',   label: 'Beach & Ocean',   emoji: '🏖️', photoId: '1507525428034-b723cf961d3e', placeCount: 19 },
-  { slug: 'local-food',    label: 'Local Food',      emoji: '🍽️', photoId: '1414235077428-338989a2e8c0', placeCount: 27 },
-  { slug: 'nightlife',     label: 'Nightlife',       emoji: '🌙', photoId: '1520942702018-0862200e6873', placeCount: 9  },
-  { slug: 'nature-hiking', label: 'Nature & Hiking', emoji: '🌿', photoId: '1469474968028-56623f02e42e', placeCount: 14 },
-  { slug: 'arts-culture',  label: 'Arts & Culture',  emoji: '🎭', photoId: '1506368249639-73a05d6f6488', placeCount: 15 },
-  { slug: 'family-kids',   label: 'Family & Kids',   emoji: '👨‍👩‍👧', photoId: '1505118380757-91f5f5632de0', placeCount: 31 },
-  { slug: 'sunset-spots',  label: 'Sunset Spots',    emoji: '🌅', photoId: '1520250497591-112f2f40a3f4', placeCount: 18 },
-  { slug: 'hidden-gems',   label: 'Hidden Gems',     emoji: '💎', photoId: '1559737558-29e20b1a5a3c', placeCount: 11 },
+  { slug: 'beach-ocean',   label: 'Beach & Ocean', photoId: '1507525428034-b723cf961d3e', placeCount: 19 },
+  { slug: 'local-food',    label: 'Local Food', photoId: '1414235077428-338989a2e8c0', placeCount: 27 },
+  { slug: 'nightlife',     label: 'Nightlife', photoId: '1520942702018-0862200e6873', placeCount: 9  },
+  { slug: 'nature-hiking', label: 'Nature & Hiking', photoId: '1469474968028-56623f02e42e', placeCount: 14 },
+  { slug: 'arts-culture',  label: 'Arts & Culture', photoId: '1506368249639-73a05d6f6488', placeCount: 15 },
+  { slug: 'family-kids',   label: 'Family & Kids', photoId: '1505118380757-91f5f5632de0', placeCount: 31 },
+  { slug: 'sunset-spots',  label: 'Sunset Spots', photoId: '1520250497591-112f2f40a3f4', placeCount: 18 },
+  { slug: 'hidden-gems',   label: 'Hidden Gems', photoId: '1559737558-29e20b1a5a3c', placeCount: 11 },
 ]
 
 // ─── Categories ───────────────────────────────────────────────────────────────
 // 'hidden-gem' is NOT a category — use is_hidden_gem flag on places
 
 export const CATEGORIES: CategoryItem[] = [
-  { id: 'all',        label: 'All',        emoji: '✦' },
-  { id: 'restaurant', label: 'Food',       emoji: '🍽' },
-  { id: 'cafe',       label: 'Cafés',      emoji: '☕' },
-  { id: 'beach',      label: 'Beaches',    emoji: '🏖' },
-  { id: 'nightlife',  label: 'Nightlife',  emoji: '🌙' },
-  { id: 'activity',   label: 'Activities', emoji: '🎯' },
-  { id: 'event',      label: 'Events',     emoji: '🎉' },
-  { id: 'viewpoint',  label: 'Viewpoints', emoji: '👁' },
-  { id: 'market',     label: 'Markets',    emoji: '🛍' },
+  { id: 'all',        label: 'All' },
+  { id: 'restaurant', label: 'Food' },
+  { id: 'cafe',       label: 'Cafés' },
+  { id: 'beach',      label: 'Beaches' },
+  { id: 'nightlife',  label: 'Nightlife' },
+  { id: 'activity',   label: 'Activities' },
+  { id: 'event',      label: 'Events' },
+  { id: 'viewpoint',  label: 'Viewpoints' },
+  { id: 'market',     label: 'Markets' },
 ]
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
